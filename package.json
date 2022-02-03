@@ -1,0 +1,29 @@
+{
+  "name": "smart-design",
+  "version": "1.0.0",
+  "description": "Test task for Smart Design",
+  "main": "app.js",
+  "scripts": {
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daijoubu22/Smart-design.git"
+  },
+  "author": "Aleksey Tribunskiy <alextrio.2224@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Daijoubu22/Smart-design/issues"
+  },
+  "homepage": "https://github.com/Daijoubu22/Smart-design#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
