@@ -1,22 +1,31 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const config = require('config');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const PORT = config.get('port') || 5000;
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cors({
+//   origin: 'http://localhost:3000'
+// }));
+// app.use(express.json({extended: true}));
+app.use('/api/product', require('./routes/product.routes'));
 
 async function start() {
   try {
-    await mongoose.connect('mongodb+srv://admin:admin@cluster0.vm3zi.mongodb.net/smartDesign?retryWrites=true&w=majority', {
+    await mongoose.connect(config.get('mongoUri'), {
       useNewUrlParser: true,
-      useUnifiedTopoly: true,
-      useCreateIndex: true,
-      useFindAndModify: true
     });
-
-    app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
-    })
-  } catch (err) {console.error(err)}
+    app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`));
+  } catch (err) {
+    console.log('Server error', err.message);
+    process.exit(1);
+  }
 }
 
 start();

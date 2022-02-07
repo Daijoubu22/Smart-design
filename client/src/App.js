@@ -8,12 +8,12 @@ function App() {
     <>
       <div className='fixed -z-10 w-full h-full bg-slate-200'></div>
       <header className='bg-white py-3 text-center shadow-lg'>
-        <Link to='/products'>Products</Link> / <Link to='/add-product'>Add product</Link>
+        <Link to='/products'>Products</Link> / <Link to='/add'>Add product</Link>
       </header>
       <main className='container mx-auto'>
         <Routes>
-          <Route path='/products' element={<Products/>}/>
-          <Route path='/add-product' element={<AddProduct/>}/>
+          <Route path='/products' exact element={<Products/>}/>
+          <Route path='/add' exact element={<AddProduct/>}/>
         </Routes>
       </main>
     </>
