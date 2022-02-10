@@ -8,7 +8,7 @@ function App() {
     <>
       <div className='fixed -z-10 w-full h-full bg-slate-200'></div>
       <header className='bg-white py-3 text-center shadow-lg'>
-        <Link to='/products'>Products</Link> / <Link to='/add'>Add product</Link>
+        <Link to='/products' className='hover:underline'>Products</Link> / <Link to='/add' className='hover:underline'>Add product</Link>
       </header>
       <main className='container mx-auto'>
         <Routes>

@@ -1,19 +1,43 @@
-const {Router} = require('express');
-const router = Router();
+const Router = require('express');
 const Product = require('../models/Product');
-   
+const router = new Router();
 
 router.post('/add', async (req, res) => {
   try {
-    // const {name} = req.body;
-    console.log(req.body);
-
-    const product = new Product({name: '123', description: '123'});
+    const {name, description, parameters} = req.body;
+    const product = new Product({name, description, parameters});
     await product.save();
-    res.status(201).json({message: 'Product has been added'});
+    return res.json({message: 'Product has been added'});
   } catch (err) {
-    res.status(500).json({message: 'Something went wrong...'});
+    console.log(err);
+    res.send({message: "Server error"});
   }
 });
+
+router.get('/', async (req, res) => {
+  try {
+    const {input, property} = req.query;
+    let products = [];
+    if (input) {
+      switch (property) {
+        case 'name':
+          products = await Product.find({'name': input});
+          break;
+        case 'description':
+          products = await Product.find({'description': input});
+          break;
+        default:
+          const str = `parameters.${property}`;
+          products = await Product.find({[str]: input});
+          break;
+      }
+    }
+    else products = await Product.find({});
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+    res.send({message: "Server error"});
+  }
+})
 
 module.exports = router;
